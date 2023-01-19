@@ -1,0 +1,62 @@
+function RenderSquareBoard() 
+{        
+    var colorA = "white";
+    var colorB = "red";
+
+    var initRow = 1; var totalRows = 10; var initcolumn = 1; var totalColumns = 10;
+
+    var x = 0; var y = canvas.height - squareSize;
+
+    var columnNr = 1; var leftToRight = true;
+    for (var row = initRow; row <= totalRows; row++) 
+    {
+        if (leftToRight) 
+        {
+            x = 0;
+        }
+        else 
+        {
+            x = canvas.width - squareSize;
+        }
+
+        for (var column = initcolumn; column <= totalColumns; column++) 
+        {
+            if (columnNr % 2 == 0) 
+            {
+                context.fillStyle = colorA;
+            }
+            else 
+            {
+                context.fillStyle = colorB;
+            }
+
+            context.fillRect(x, y, squareSize, squareSize);
+
+            squares[columnNr] = x.toString() + ',' + y.toString();
+
+            contextText.font = "15px tahoma";
+            contextText.fillStyle = "black";
+            contextText.fillText(columnNr, x, y + squareSize);
+
+            var x1, y1
+            if (leftToRight) 
+            {
+                x += squareSize;
+
+                x1 = x + (squareSize / 2);
+            }
+            else 
+            {
+                x -= squareSize;
+                x1 = x - (squareSize / 2);
+            }
+
+            y1 = y - (squareSize / 2);
+
+            columnNr++;
+        }
+
+        y -= squareSize;
+        leftToRight = !leftToRight;
+    }
+}
